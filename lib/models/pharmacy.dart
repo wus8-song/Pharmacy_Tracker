@@ -7,7 +7,7 @@ class Pharmacy {
   int medicineQuantity;
   String id;
   String? phoneNumber;
-  Object medicines;
+  List<Medicine> medicines;
   String medicineName;
   double? distance;
 

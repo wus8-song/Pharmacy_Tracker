@@ -11,10 +11,10 @@ class DatabaseService {
       lon: -122.4194,
       medicineQuantity: 10,
       id: '1',
-      medicines: {
-        "Medicine A" : 5,
-        "Medicine B" : 7
-      },
+      medicines: [
+        Medicine(id: '1', name: 'Medicine A', currentStock: 5),
+        Medicine(id: '2', name: 'Medicine B', currentStock: 3),
+      ],
       medicineName: 'Medicine A',
     ),
     PharmacyModel.Pharmacy(
@@ -23,16 +23,11 @@ class DatabaseService {
       lon: -122.4167,
       medicineQuantity: 5,
       id: '2',
-      medicines: {
-        "Medicine A" : 5,
-        "Medicine B" : 7
-      },
-      //[
-      //  Medicine(id: '3', name: 'Medicine C', currentStock: 8),
-       // Medicine(id: '4', name: 'Medicine D', currentStock: 2),
-        //Medicine(id: '1', name: 'Medicine A', currentStock: 7),
-      //],
-      medicineName: 'Medicine A',
+      medicines: [
+        Medicine(id: '3', name: 'Medicine C', currentStock: 8),
+        Medicine(id: '4', name: 'Medicine D', currentStock: 2),
+      ],
+      medicineName: 'Medicine C',
     ),
     PharmacyModel.Pharmacy(
       name: 'Pharmacy 3',
@@ -40,14 +35,10 @@ class DatabaseService {
       lon: -122.4086,
       medicineQuantity: 8,
       id: '3',
-      medicines: {
-        "Medicine A" : 5,
-        "Medicine B" : 7
-      },
-      //[
-       // Medicine(id: '5', name: 'Medicine E', currentStock: 6),
-       // Medicine(id: '6', name: 'Medicine F', currentStock: 4),
-      //],
+      medicines: [
+        Medicine(id: '5', name: 'Medicine E', currentStock: 6),
+        Medicine(id: '6', name: 'Medicine F', currentStock: 4),
+      ],
       medicineName: 'Medicine E',
     ),
   ];
@@ -56,13 +47,9 @@ class DatabaseService {
       String medicineName, Position? userPosition) async {
     // Filter the pharmacies that have the requested medicine in stock
     List<PharmacyModel.Pharmacy> pharmaciesWithMedicine = _pharmacies
-        .where((pharmacy) => pharmacy.medicines)
-        .forEach((medicine) => medicine == medicineName)
-    //.contains(medicineName)
+        .where((pharmacy) => pharmacy.medicines
+        .any((medicine) => medicine.name.toLowerCase() == medicineName.toLowerCase()))
         .toList();
-
-        //.any((medicine) => medicine.name.toLowerCase() == medicineName.toLowerCase()))
-        //.toList();
 
     if (userPosition != null) {
       // Calculate the distance from the user to each pharmacy

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/pharmacy.dart';
 import '../services/pharmacy_service.dart';
 import '../models/pharmacy.dart' as PharmacyModel;
-
+import 'pharmacy_detail_screen.dart';
 
 class PharmacyListScreen extends StatelessWidget {
   @override
@@ -25,10 +25,20 @@ class PharmacyListScreen extends StatelessWidget {
         itemCount: pharmacies.length,
         itemBuilder: (context, index) {
           PharmacyModel.Pharmacy pharmacy = pharmacies[index];
-          return ListTile(
-            title: Text(pharmacy.name),
-            subtitle: Text('Medicine: ${pharmacy.medicineName}'),
-            trailing: Text('Quantity: ${pharmacy.medicines["Medicine A"]}'),
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PharmacyDetailScreen(pharmacy: pharmacy),
+                ),
+              );
+            },
+            child: ListTile(
+              title: Text(pharmacy.name),
+              subtitle: Text('Medicine: ${pharmacy.medicineName}'),
+              trailing: Text('Quantity: ${pharmacy.medicineQuantity}'),
+            ),
           );
         },
       ),

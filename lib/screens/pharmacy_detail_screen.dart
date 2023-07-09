@@ -6,12 +6,12 @@ import '../services/pharmacy_service.dart';
 import 'package:provider/provider.dart';
 import '../models/pharmacy.dart';
 import '../services/pharmacy_service.dart';
-
+import '../models/pharmacy.dart' as PharmacyModel;
 
 class PharmacyDetailScreen extends StatelessWidget {
-  final Pharmacy pharmacy;
+  final PharmacyModel.Pharmacy pharmacy;
 
-  const PharmacyDetailScreen({Key? key, required this.pharmacy}) : super(key: key);
+  const PharmacyDetailScreen({required this.pharmacy});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,10 @@ class PharmacyDetailScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.phone),
+            title: Text(pharmacy.phoneNumber ?? 'N/A'),
           ),
           ListTile(
             leading: const Icon(Icons.location_on),
