@@ -67,7 +67,6 @@ class Pharmacy {
     );
   }
 
-  //get distance => null;
 
   set distance(double distance) {}
 

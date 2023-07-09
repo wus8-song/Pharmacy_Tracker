@@ -1,2 +1,2 @@
 export 'pharmacy.dart';
-// Add more exports when you add more models
+// Add more exports for more models

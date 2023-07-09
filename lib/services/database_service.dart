@@ -86,10 +86,6 @@ class DatabaseService {
 
 //class DatabaseService {
  // Future<List<Pharmacy>> getNearestPharmacies() async {
-    // TODO: Implement the logic to fetch the nearest pharmacies based on the user's location
-    // You can use any location service library (e.g., geolocator) to get the user's current location
-    // Once you have the user's location, query your database or any other data source to fetch the nearest pharmacies
-    // Example: Return a list of dummy pharmacies with their names, coordinates, and medicine quantities
    // return [
      // Pharmacy(name: 'Pharmacy 1', lat: 37.7749, lon: -122.4194, medicineQuantity: 10, id: '', phoneNumber: null, medicines: [], medicineName: ''),
       //Pharmacy(name: 'Pharmacy 2', lat: 37.7833, lon: -122.4167, medicineQuantity: 5, id: '', phoneNumber: null, medicines: [], medicineName: ''),
@@ -98,9 +94,7 @@ class DatabaseService {
  // }
 
   //Future<List<Pharmacy>> getPharmaciesWithMedicine(String medicineName) async {
-    // TODO: Implement the logic to fetch the pharmacies that have the specified medicine in stock
-    // Query your database or any other data source based on the medicine name
-    // Example: Return a list of dummy pharmacies with their names, coordinates, and medicine quantities
+
     //return [
       //Pharmacy(name: 'Pharmacy 1', lat: 37.7749, lon: -122.4194, medicineQuantity: 10, id: '', phoneNumber: null, medicines: [], medicineName: ''),
       //Pharmacy(name: 'Pharmacy 2', lat: 37.7833, lon: -122.4167, medicineQuantity: 5, id: '', phoneNumber: null, medicines: [], medicineName: ''),
