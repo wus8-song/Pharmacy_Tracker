@@ -20,7 +20,7 @@ class PharmacyService with ChangeNotifier {
   Future<void> searchPharmaciesByMedicine(String medicineName) async {
     try {
       _userPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      _searchResults = await _databaseService.getPharmaciesWithMedicine(medicineName, _userPosition);
+      _searchResults = await _databaseService.getPharmaciesWithMedicine(medicineName, _userPosition!);
       notifyListeners();
     } catch (error) {
       print('Error searching pharmacies: $error');

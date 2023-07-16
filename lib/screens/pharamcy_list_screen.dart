@@ -8,37 +8,28 @@ import 'pharmacy_detail_screen.dart';
 class PharmacyListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<PharmacyModel.Pharmacy> pharmacies = Provider.of<PharmacyService>(context).searchResults;
+    List<Pharmacy> pharmacies = Provider.of<PharmacyService>(context).searchResults;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pharmacy List'),
       ),
-      body: pharmacies.isEmpty
-          ? Center(
-        child: Text(
-          'No pharmacies found.',
-          style: TextStyle(fontSize: 16),
-        ),
-      )
-          : ListView.builder(
+      body: ListView.builder(
         itemCount: pharmacies.length,
         itemBuilder: (context, index) {
-          PharmacyModel.Pharmacy pharmacy = pharmacies[index];
-          return GestureDetector(
+          Pharmacy pharmacy = pharmacies[index];
+          return ListTile(
+            title: Text(pharmacy.name),
+            subtitle: Text('Medicine: ${pharmacy.medicines.first.name}'), // Displaying the first medicine's name
+            trailing: Text('Quantity: ${pharmacy.medicines[0].currentStock}'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PharmacyDetailScreen(pharmacy: pharmacy),
+                  builder: (context) => PharmacyDetailScreen(pharmacy: pharmacy), // Pass the selected pharmacy to the detail screen
                 ),
               );
             },
-            child: ListTile(
-              title: Text(pharmacy.name),
-              subtitle: Text('Medicine: ${pharmacy.medicineName}'),
-              trailing: Text('Quantity: ${pharmacy.medicineQuantity}'),
-            ),
           );
         },
       ),

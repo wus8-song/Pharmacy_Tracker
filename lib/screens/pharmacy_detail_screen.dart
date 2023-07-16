@@ -7,9 +7,10 @@ import 'package:provider/provider.dart';
 import '../models/pharmacy.dart';
 import '../services/pharmacy_service.dart';
 import '../models/pharmacy.dart' as PharmacyModel;
+import '../models/pharmacy.dart';
 
 class PharmacyDetailScreen extends StatelessWidget {
-  final PharmacyModel.Pharmacy pharmacy;
+  final Pharmacy pharmacy;
 
   const PharmacyDetailScreen({required this.pharmacy});
 
@@ -43,6 +44,18 @@ class PharmacyDetailScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.medical_services),
             title: Text('Medicine Quantity: ${pharmacy.medicineQuantity}'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.list),
+            title: Text('Medicines:'),
+            subtitle: Column(
+              children: pharmacy.medicines.map((medicine) {
+                return ListTile(
+                  title: Text(medicine.name),
+                  subtitle: Text('Stock: ${medicine.currentStock}'),
+                );
+              }).toList(),
+            ),
           ),
         ],
       ),

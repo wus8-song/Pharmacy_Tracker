@@ -1,106 +1,99 @@
 
-import '../models/medicine.dart';
+import 'package:geolocator_platform_interface/src/models/position.dart';
+import '../models/medicine.dart' as MedicineModel;
 import '../models/pharmacy.dart' as PharmacyModel;
-import 'package:geolocator/geolocator.dart';
+
 
 class DatabaseService {
-  final List<PharmacyModel.Pharmacy> _pharmacies = [
-    PharmacyModel.Pharmacy(
-      name: 'Pharmacy 1',
-      lat: 37.7749,
-      lon: -122.4194,
-      medicineQuantity: 10,
-      id: '1',
-      medicines: [
-        Medicine(id: '1', name: 'Medicine A', currentStock: 5),
-        Medicine(id: '2', name: 'Medicine B', currentStock: 3),
-      ],
-      medicineName: 'Medicine A',
-    ),
-    PharmacyModel.Pharmacy(
-      name: 'Pharmacy 2',
-      lat: 37.7833,
-      lon: -122.4167,
-      medicineQuantity: 5,
-      id: '2',
-      medicines: [
-        Medicine(id: '3', name: 'Medicine C', currentStock: 8),
-        Medicine(id: '4', name: 'Medicine D', currentStock: 2),
-      ],
-      medicineName: 'Medicine C',
-    ),
-    PharmacyModel.Pharmacy(
-      name: 'Pharmacy 3',
-      lat: 37.7914,
-      lon: -122.4086,
-      medicineQuantity: 8,
-      id: '3',
-      medicines: [
-        Medicine(id: '5', name: 'Medicine E', currentStock: 6),
-        Medicine(id: '6', name: 'Medicine F', currentStock: 4),
-      ],
-      medicineName: 'Medicine E',
-    ),
-  ];
+  Future<List<PharmacyModel.Pharmacy>> getPharmaciesWithMedicine(String medicineName, Position userPosition) async {
+    List<PharmacyModel.Pharmacy> filteredPharmacies = dummyPharmacies.where((pharmacy) {
+      return pharmacy.medicines.any((medicine) =>
+      medicine.name.toLowerCase() == medicineName.toLowerCase());
+    }).toList();
 
-  Future<List<PharmacyModel.Pharmacy>> getPharmaciesWithMedicine(
-      String medicineName, Position? userPosition) async {
-    // Filter the pharmacies that have the requested medicine in stock
-    List<PharmacyModel.Pharmacy> pharmaciesWithMedicine = _pharmacies
-        .where((pharmacy) => pharmacy.medicines
-        .any((medicine) => medicine.name.toLowerCase() == medicineName.toLowerCase()))
-        .toList();
-
-    if (userPosition != null) {
-      // Calculate the distance from the user to each pharmacy
-      for (PharmacyModel.Pharmacy pharmacy in pharmaciesWithMedicine) {
-        double distanceInMeters = Geolocator.distanceBetween(
-          userPosition.latitude,
-          userPosition.longitude,
-          pharmacy.lat,
-          pharmacy.lon,
-        );
-
-        // Convert the distance to kilometers and store it in the pharmacy object
-        pharmacy.distance = distanceInMeters / 1000;
-      }
-
-      // Sort the pharmacies by distance (from nearest to farthest)
-      pharmaciesWithMedicine.sort((a, b) {
-        if (a.distance == null && b.distance == null) {
-          return 0;
-        } else if (a.distance == null) {
-          return 1;
-        } else if (b.distance == null) {
-          return -1;
-        } else {
-          return a.distance!.compareTo(b.distance!);
-        }
-      });
-    }
-
-    return pharmaciesWithMedicine;
+    return filteredPharmacies;
   }
 }
 
+List<PharmacyModel.Pharmacy> dummyPharmacies = [
+PharmacyModel.Pharmacy(
+name: 'Pharmacy 1',
+lat: 37.7749,
+lon: -122.4194,
+medicineQuantity: 10,
+id: '1',
+phoneNumber: '+123456789',
+medicines: [
+MedicineModel.Medicine(id: '1', name: 'Medicine A', currentStock: 5),
+MedicineModel.Medicine(id: '2', name: 'Medicine B', currentStock: 3),
+MedicineModel.Medicine(id: '3', name: 'Medicine C', currentStock: 2),
+MedicineModel.Medicine(id: '4', name: 'Medicine D', currentStock: 4),
+MedicineModel.Medicine(id: '5', name: 'Medicine E', currentStock: 1),
+],
+medicineName: 'Medicine A',
+),
+PharmacyModel.Pharmacy(
+name: 'Pharmacy 2',
+lat: 37.7833,
+lon: -122.4167,
+medicineQuantity: 5,
+id: '2',
+phoneNumber: '+987654321',
+medicines: [
+  MedicineModel.Medicine(id: '1', name: 'Medicine A', currentStock: 6),
+  MedicineModel.Medicine(id: '6', name: 'Medicine F', currentStock: 6),
+  MedicineModel.Medicine(id: '7', name: 'Medicine G', currentStock: 2),
+  MedicineModel.Medicine(id: '8', name: 'Medicine H', currentStock: 3),
+  MedicineModel.Medicine(id: '9', name: 'Medicine I', currentStock: 1),
+],
+medicineName: 'Medicine F',
+),
+PharmacyModel.Pharmacy(
+name: 'Pharmacy 3',
+lat: 37.7914,
+lon: -122.4086,
+medicineQuantity: 8,
+id: '3',
+phoneNumber: '+111222333',
+medicines: [
+  MedicineModel.Medicine(id: '1', name: 'Medicine A', currentStock: 7),
+  MedicineModel.Medicine(id: '11', name: 'Medicine K', currentStock: 7),
+  MedicineModel.Medicine(id: '12', name: 'Medicine L', currentStock: 2),
+  MedicineModel.Medicine(id: '13', name: 'Medicine M', currentStock: 3),
+  MedicineModel.Medicine(id: '14', name: 'Medicine N', currentStock: 5),
+],
+medicineName: 'Medicine K',
+),
+PharmacyModel.Pharmacy(
+name: 'Pharmacy 4',
+lat: 37.7519,
+lon: -122.4342,
+medicineQuantity: 12,
+id: '4',
+phoneNumber: '+444555666',
+medicines: [
+  MedicineModel.Medicine(id: '1', name: 'Medicine A', currentStock: 8),
+  MedicineModel.Medicine(id: '15', name: 'Medicine O', currentStock: 6),
+  MedicineModel.Medicine(id: '16', name: 'Medicine P', currentStock: 2),
+  MedicineModel.Medicine(id: '17', name: 'Medicine Q', currentStock: 3),
+  MedicineModel.Medicine(id: '18', name: 'Medicine R', currentStock: 4),
+],
+medicineName: 'Medicine P',
+),
+PharmacyModel.Pharmacy(
+name: 'Pharmacy 5',
+lat: 37.8085,
+lon: -122.4199,
+medicineQuantity: 7,
+id: '5',
+phoneNumber: '+777888999',
+medicines: [
+  MedicineModel.Medicine(id: '1', name: 'Medicine A', currentStock: 9),
+  MedicineModel.Medicine(id: '19', name: 'Medicine S', currentStock: 7),
+  MedicineModel.Medicine(id: '20', name: 'Medicine T', currentStock: 3),
+  MedicineModel.Medicine(id: '21', name: 'Medicine U', currentStock: 2),
+  MedicineModel.Medicine(id: '22', name: 'Medicine V', currentStock: 5),
+],
+medicineName: 'Medicine U',
+)];
 
-//class DatabaseService {
- // Future<List<Pharmacy>> getNearestPharmacies() async {
-   // return [
-     // Pharmacy(name: 'Pharmacy 1', lat: 37.7749, lon: -122.4194, medicineQuantity: 10, id: '', phoneNumber: null, medicines: [], medicineName: ''),
-      //Pharmacy(name: 'Pharmacy 2', lat: 37.7833, lon: -122.4167, medicineQuantity: 5, id: '', phoneNumber: null, medicines: [], medicineName: ''),
-      //Pharmacy(name: 'Pharmacy 3', lat: 37.7914, lon: -122.4086, medicineQuantity: 8, id: '', phoneNumber: null, medicines: [], medicineName: ''),
-    //];
- // }
-
-  //Future<List<Pharmacy>> getPharmaciesWithMedicine(String medicineName) async {
-
-    //return [
-      //Pharmacy(name: 'Pharmacy 1', lat: 37.7749, lon: -122.4194, medicineQuantity: 10, id: '', phoneNumber: null, medicines: [], medicineName: ''),
-      //Pharmacy(name: 'Pharmacy 2', lat: 37.7833, lon: -122.4167, medicineQuantity: 5, id: '', phoneNumber: null, medicines: [], medicineName: ''),
-      //Pharmacy(name: 'Pharmacy 3', lat: 37.7914, lon: -122.4086, medicineQuantity: 8, id: '', phoneNumber: null, medicines: [], medicineName: ''),
-    //];
-  //}
-
-  //void searchPharmacies(String medicineName) {}
-//}
