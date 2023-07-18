@@ -32,7 +32,8 @@ class SearchScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 String medicineName = _searchController.text;
-                if (medicineName.isNotEmpty) {
+                if (medicineName.isNotEmpty &&
+                    _isValidMedicineName(medicineName)) {
                   print('Searching for medicine: $medicineName');
                   Provider.of<PharmacyService>(context, listen: false)
                       .searchPharmaciesByMedicine(medicineName)
@@ -40,9 +41,21 @@ class SearchScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/list');
                   });
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Search field is empty!'),
-                  ));
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Invalid Medicine Name'),
+                      content: const Text('Please enter a valid medicine name.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
                 }
               },
               child: const Text('List'),
@@ -52,5 +65,11 @@ class SearchScreen extends StatelessWidget {
       ),
     );
   }
-}
 
+  bool _isValidMedicineName(String medicineName) {
+
+    List<String> validMedicineNames = ['Medicine A', 'Medicine B', 'Medicine C', 'Medicine D', 'Medicine D', 'Medicine E', 'Medicine F', 'Medicine G', 'Medicine H', 'Medicine I', 'Medicine J', 'Medicine K',
+      'Medicine L', 'Medicine M', 'Medicine N', 'Medicine O', 'Medicine P', 'Medicine Q', 'Medicine R', 'Medicine S', 'Medicine T', 'Medicine U', 'Medicine V', 'Medicine W', 'Medicine X', 'Medicine Z'];
+    return validMedicineNames.contains(medicineName);
+  }
+}
