@@ -1,4 +1,4 @@
-import 'package:geolocator_platform_interface/src/models/position.dart';
+
 import '../models/medicine.dart' as MedicineModel;
 import '../models/pharmacy.dart' as PharmacyModel;
 
@@ -23,7 +23,7 @@ class DatabaseService {
         medicineQuantity: pharmacy.medicineQuantity,
         phoneNumber: pharmacy.phoneNumber,
         medicines: pharmacy.medicines,
-        medicineName: '', // Update the medicineName property here
+        medicineName: '',
       );
     }).toList();
     return Future.delayed(Duration(seconds: 2), () => pharmacies);

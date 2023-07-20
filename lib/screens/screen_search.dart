@@ -1,13 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/pharmacy.dart';
-import '../services/database_service.dart';
 import '../services/pharmacy_service.dart';
-import 'pharamcy_list_screen.dart';
-import 'pharmacy_map_screen.dart';
-import '../models/medicine.dart';
-
 
 class SearchScreen extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();

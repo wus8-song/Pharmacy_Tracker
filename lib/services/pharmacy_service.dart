@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import '../models/medicine.dart';
 import '../models/pharmacy.dart' as PharmacyModel;
 import 'database_service.dart';
 import 'package:flutter/material.dart';

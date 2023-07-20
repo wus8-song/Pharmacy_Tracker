@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/pharmacy.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../services/pharmacy_service.dart';
-import 'package:provider/provider.dart';
-import '../models/pharmacy.dart';
-import '../services/pharmacy_service.dart';
 import '../models/pharmacy.dart' as PharmacyModel;
 import '../models/pharmacy.dart';
 
