@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/pharmacy.dart';
+import '../models/pharmacy.dart' as medicineName;
 import '../services/pharmacy_service.dart';
 import '../models/pharmacy.dart' as PharmacyModel;
 import 'pharmacy_detail_screen.dart';
+import '../models/medicine.dart' as MedicineModel;
+
+
 
 class PharmacyListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Pharmacy> pharmacies = Provider.of<PharmacyService>(context).searchResults;
+    List<PharmacyModel.Pharmacy> pharmacies = Provider.of<PharmacyService>(context).searchResults;
 
     return Scaffold(
       appBar: AppBar(
@@ -17,16 +20,31 @@ class PharmacyListScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: pharmacies.length,
         itemBuilder: (context, index) {
-          Pharmacy pharmacy = pharmacies[index];
+          PharmacyModel.Pharmacy pharmacy = pharmacies[index];
+
+          List<MedicineModel.Medicine> searchedMedicines = pharmacy.medicines
+              .where((medicine) => medicine.name.toLowerCase() == pharmacy.medicineName.toLowerCase())
+              .toList();
+
           return ListTile(
             title: Text(pharmacy.name),
-            subtitle: Text('Medicine: ${pharmacy.medicines.first.name}'), // Displaying the first medicine's name
-            trailing: Text('Quantity: ${pharmacy.medicines[0].currentStock}'),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: searchedMedicines
+                  .map((medicine) => Text('Medicine: ${medicine.name}'))
+                  .toList(),
+            ),
+            trailing: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: searchedMedicines
+                  .map((medicine) => Text('Quantity: ${medicine.currentStock}'))
+                  .toList(),
+            ),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PharmacyDetailScreen(pharmacy: pharmacy), // Pass the selected pharmacy to the detail screen
+                  builder: (context) => PharmacyDetailScreen(pharmacy: pharmacy),
                 ),
               );
             },

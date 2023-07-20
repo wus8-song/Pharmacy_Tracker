@@ -8,7 +8,7 @@ class Pharmacy {
   final String id;
   final String? phoneNumber;
   final List<MedicineModel.Medicine> medicines;
-  final String medicineName;
+   String medicineName;
 
   Pharmacy({
     required this.name,

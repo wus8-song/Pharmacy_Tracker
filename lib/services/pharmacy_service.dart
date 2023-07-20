@@ -5,7 +5,7 @@ import '../models/medicine.dart';
 import '../models/pharmacy.dart' as PharmacyModel;
 import 'database_service.dart';
 import 'package:flutter/material.dart';
-
+import '../models/medicine.dart' as MedicineModel;
 
 class PharmacyService with ChangeNotifier {
   final DatabaseService _databaseService;
@@ -15,41 +15,28 @@ class PharmacyService with ChangeNotifier {
   PharmacyService(this._databaseService);
 
   List<PharmacyModel.Pharmacy> get searchResults => _searchResults;
+
   Position? get userPosition => _userPosition;
 
   Future<void> searchPharmaciesByMedicine(String medicineName) async {
     try {
       _userPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      _searchResults = await _databaseService.getPharmaciesWithMedicine(medicineName, _userPosition!);
+      List<PharmacyModel.Pharmacy> allPharmacies = await _databaseService.getPharmacies();
+
+      _searchResults = allPharmacies
+          .where((pharmacy) => pharmacy.medicines.any((medicine) => medicine.name.toLowerCase() == medicineName.toLowerCase()))
+          .toList();
+
       notifyListeners();
     } catch (error) {
       print('Error searching pharmacies: $error');
       throw error;
     }
   }
+
 }
 
 
 
 
 
-//class PharmacyService with ChangeNotifier {
-  //final DatabaseService _databaseService;
-
-  //List<Pharmacy> _searchResults = [];
-
-  //PharmacyService(this._databaseService);
-
-  //List<Pharmacy> get searchResults => _searchResults;
-
-  //Future<void> searchPharmaciesByMedicine(String medicineName) async {
-    //try {
-      //List<Pharmacy> pharmacies = await _databaseService.getPharmaciesWithMedicine(medicineName);
-      //_searchResults = pharmacies;
-     // notifyListeners();
-    //} catch (error) {
-     // print('Error searching pharmacies: $error');
-     // throw error;
-    //}
-  //}
-//}
