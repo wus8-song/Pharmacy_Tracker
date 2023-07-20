@@ -5,8 +5,10 @@ import '../models/pharmacy.dart' as PharmacyModel;
 
 
 class DatabaseService {
-  Future<List<PharmacyModel.Pharmacy>> getPharmaciesWithMedicine(String medicineName, Position userPosition) async {
-    List<PharmacyModel.Pharmacy> filteredPharmacies = dummyPharmacies.where((pharmacy) {
+  Future<List<PharmacyModel.Pharmacy>> getPharmaciesWithMedicine(
+      String medicineName, Position userPosition) async {
+    List<PharmacyModel.Pharmacy> filteredPharmacies =
+    dummyPharmacies.where((pharmacy) {
       return pharmacy.medicines.any((medicine) =>
       medicine.name.toLowerCase() == medicineName.toLowerCase());
     }).toList();

@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 
 class PharmacyService with ChangeNotifier {
   final DatabaseService _databaseService;
-  Position? _userPosition;
   List<PharmacyModel.Pharmacy> _searchResults = [];
+  Position? _userPosition;
 
   PharmacyService(this._databaseService);
 
@@ -28,6 +28,7 @@ class PharmacyService with ChangeNotifier {
     }
   }
 }
+
 
 
 

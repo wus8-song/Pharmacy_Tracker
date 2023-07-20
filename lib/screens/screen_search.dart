@@ -8,6 +8,7 @@ import 'pharamcy_list_screen.dart';
 import 'pharmacy_map_screen.dart';
 import '../models/medicine.dart';
 
+
 class SearchScreen extends StatelessWidget {
   final TextEditingController _searchController = TextEditingController();
 
@@ -67,9 +68,33 @@ class SearchScreen extends StatelessWidget {
   }
 
   bool _isValidMedicineName(String medicineName) {
-
-    List<String> validMedicineNames = ['Medicine A', 'Medicine B', 'Medicine C', 'Medicine D', 'Medicine D', 'Medicine E', 'Medicine F', 'Medicine G', 'Medicine H', 'Medicine I', 'Medicine J', 'Medicine K',
-      'Medicine L', 'Medicine M', 'Medicine N', 'Medicine O', 'Medicine P', 'Medicine Q', 'Medicine R', 'Medicine S', 'Medicine T', 'Medicine U', 'Medicine V', 'Medicine W', 'Medicine X', 'Medicine Z'];
+    List<String> validMedicineNames = [
+      'Medicine A',
+      'Medicine B',
+      'Medicine C',
+      'Medicine D',
+      'Medicine E',
+      'Medicine F',
+      'Medicine G',
+      'Medicine H',
+      'Medicine I',
+      'Medicine J',
+      'Medicine K',
+      'Medicine L',
+      'Medicine M',
+      'Medicine N',
+      'Medicine O',
+      'Medicine P',
+      'Medicine Q',
+      'Medicine R',
+      'Medicine S',
+      'Medicine T',
+      'Medicine U',
+      'Medicine V',
+      'Medicine W',
+      'Medicine X',
+      'Medicine Z',
+    ];
     return validMedicineNames.contains(medicineName);
   }
 }
